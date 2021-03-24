@@ -30,5 +30,5 @@ opkg install --force-overwrite pv fdisk
 ```
 然后下载脚本执行
 ```bash
-wget -qO- https://github.com/My-Compile/nanopi-R2S/raw/master/scripts/update.sh | sh
+wget -qO- https://github.com/huyunlei2020/R2S/raw/master/scripts/update.sh | sh
 ```
