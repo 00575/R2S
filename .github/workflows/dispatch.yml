@@ -1,5 +1,7 @@
 name: Repo Dispatcher
 on:
+  schedule:
+    - cron: '22 10 * * *'
   workflow_dispatch:
     inputs:
       device:
