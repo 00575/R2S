@@ -14,8 +14,6 @@ function merge_package(){
     mv $pn package/
 }
 
-merge_package https://github.com/linkease/ddnsto-openwrt
-merge_package https://github.com/project-lede/luci-app-godproxy
 merge_package https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-cifsd luci-app-ksmbd
 merge_package https://github.com/coolsnowwolf/packages/trunk/kernel/ksmbd
 merge_package https://github.com/coolsnowwolf/packages/trunk/net/ksmbd-tools
@@ -27,6 +25,4 @@ if [ $DEVICE = 'r2s' ]; then
     wget https://github.com/friendlyarm/friendlywrt/raw/master-v19.07.1/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-pwmfan -qNP files/etc/init.d
     chmod +x files/etc/init.d/fa-rk3328-pwmfan
     ln -sf ../init.d/fa-rk3328-pwmfan files/etc/rc.d/S96fa-rk3328-pwmfan
-    merge_package https://github.com/NateLol/luci-app-oled
-    sed -i "s/enable '0'/enable '1'/" package/luci-app-oled/root/etc/config/oled
 fi
