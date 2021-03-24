@@ -30,6 +30,7 @@ jobs:
           nohup sudo rm -rf /usr/share/dotnet /usr/local/lib/android/sdk &
           sudo -E apt update
           nohup sudo -E apt -y --no-install-recommends install jq build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libreadline-dev libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint ccache curl wget vim nano python python3 python-pip python3-pip python-ply python3-ply haveged lrzsz device-tree-compiler scons antlr3 gperf intltool rsync swig &
+      
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
@@ -52,6 +53,7 @@ jobs:
           else
           sudo chown $USER:$(id -gn) lede && (cd lede && git init && git remote add -t openwrt-18.06-k5.4 -f origin https://github.com/immortalwrt/immortalwrt && git checkout openwrt-18.06-k5.4)
           fi
+      
       - name: Update feeds and packages
         run: |
           cd ~/lede
@@ -63,10 +65,12 @@ jobs:
           ./scripts/feeds install -a
           . $GITHUB_WORKSPACE/patches.sh
           . $GITHUB_WORKSPACE/merge_packages.sh
+          
       - name: Custom configure file
         run: |
           cd ~/lede
           cat $GITHUB_WORKSPACE/$DEVICE.config.seed > .config
+          
       - name: Compile firmware
         run: |
           cd ~/lede
@@ -83,6 +87,7 @@ jobs:
           sed -i '/\(tools\|toolchain\)\/Makefile/d' Makefile
           echo -e '# CONFIG_SIGNED_PACKAGES is not set\n' >> .config
           #grep -l -r --include=\Makefile '(STAGING_DIR_HOST)/bin/upx ' | xargs -n1 -i sed -i '/upx/d' {}
+          [ ! -x "~/lede/staging_dir/host/bin/upx" ] && curl -sL https://raw.githubusercontent.com/biliwala/nanopi-openwrt/zstd-bin/upx | tee ~/lede/staging_dir/host/bin/upx > /dev/null && chmod +x ~/lede/staging_dir/host/bin/upx
           make defconfig
           while true; do make download -j && break || true; done
           while true; do make package/download -j && break || true; done
@@ -96,6 +101,7 @@ jobs:
           du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
           du -h --max-depth=1 ./build_dir
           du -h --max-depth=1 ./bin
+          
       - name: Prepare artifact
         run: |
           cd
@@ -116,6 +122,7 @@ jobs:
           rm -rf bin tmp
           cd ..
           mv artifact release $GITHUB_WORKSPACE
+          
       - name: Deliver buildinfo
         uses: actions/upload-artifact@v2
         with:
@@ -158,6 +165,7 @@ jobs:
           xargs -n1 -i curl -X DELETE -H "$AUTH" "https://api.$cache_path/assets/{}"
           zstdmt -c --adapt --long lede.img | parallel --wc --block 1.99G --pipe \
           'curl -s --data-binary @- -H "$AUTH" -H "Content-Type: application/octet-stream" https://uploads.$cache_path/$cache_repo_id/assets?name=lede.'$DEVICE'.img.zst.0{#} > /dev/null'
+      
       - name: Debug via tmate
         uses: P3TERX/ssh2actions@main
         if: ${{ failure() && env.TG }}
@@ -196,6 +204,7 @@ jobs:
           bin/packages/*/* root@direct.imgxxx.net:/usr/share/caddy/$DEVICE/
           rsync -ach --progress -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
           bin/targets/*/*/packages/ root@direct.imgxxx.net:/usr/share/caddy/$DEVICE/core//
+      
       - name: Debug via tmate
         uses: P3TERX/ssh2actions@main
         if: ${{ failure() && env.TG }}
