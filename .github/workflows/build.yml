@@ -87,7 +87,6 @@ jobs:
           sed -i '/\(tools\|toolchain\)\/Makefile/d' Makefile
           echo -e '# CONFIG_SIGNED_PACKAGES is not set\n' >> .config
           #grep -l -r --include=\Makefile '(STAGING_DIR_HOST)/bin/upx ' | xargs -n1 -i sed -i '/upx/d' {}
-          [ ! -x "~/lede/staging_dir/host/bin/upx" ] && curl -sL https://raw.githubusercontent.com/biliwala/nanopi-openwrt/zstd-bin/upx | tee ~/lede/staging_dir/host/bin/upx > /dev/null && chmod +x ~/lede/staging_dir/host/bin/upx
           make defconfig
           while true; do make download -j && break || true; done
           while true; do make package/download -j && break || true; done
