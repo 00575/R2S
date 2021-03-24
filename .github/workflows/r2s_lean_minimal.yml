@@ -6,7 +6,7 @@ on:
     paths:
       - '.github/workflows/r2s_lean_minimal.yml'
   schedule:
-    - cron: '00 20 * * *'
+    - cron: '30 20 * * *'
   workflow_dispatch:
     ref: refs/heads/master
 
