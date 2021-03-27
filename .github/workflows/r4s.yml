@@ -1,4 +1,4 @@
-name: build
+name: build-r4s
 
 on:
   repository_dispatch:
@@ -6,7 +6,7 @@ on:
     inputs:
       device:
         description: 'select device to build'
-        default: 'r2s'
+        default: 'r4s'
         required: false
 
 jobs:
