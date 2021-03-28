@@ -11,13 +11,9 @@ on:
 
 jobs:
 
-  build_packages:
-    name: Build ${{ github.event.client_payload.device || github.event.inputs.device }} packages
+  build:
+
     runs-on: ubuntu-18.04
-    env:
-      DEVICE: ${{ github.event.client_payload.device || github.event.inputs.device }}
-      TG: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      DEPLOY_SSHKEY: ${{ secrets.SSH_KEY }}
     if: github.repository_owner=='huyunlei2020'
 
     steps:
@@ -168,7 +164,6 @@ jobs:
           release_name: ${{env.strDevice}} ${{env.strDate}} 自动发布
 
       - name: Save cache state
-        #if: env.TG
         run: |
           cd
           sleep 120
