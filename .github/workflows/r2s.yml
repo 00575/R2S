@@ -1,4 +1,4 @@
-name: Repo Dispatcher
+name: r2s
 on:
   schedule:
     - cron: '30 22 * * *'
