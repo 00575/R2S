@@ -36,7 +36,7 @@ jobs:
       - name: Checkout
         run: |
           cd
-          curl -sL https://raw.githubusercontent.com/My-Compile/nanopi-R2S/zstd-bin/zstd | sudo tee /usr/bin/zstd > /dev/null
+          curl -sL https://raw.githubusercontent.com/huyunlei2020/nanopi-R2S/zstd-bin/zstd | sudo tee /usr/bin/zstd > /dev/null
           for i in {1..10}
           do
             curl -sL --fail https://github.com/My-Compile/sshactions/releases/download/cache/lede.$DEVICE.img.zst.0$i || break
@@ -62,8 +62,10 @@ jobs:
             pushd feeds/routing; git restore .; popd
             pushd feeds/telephony; git restore .; popd
           fi
+          [ -d 'package/base' ] && mv package/base ~/
           ./scripts/feeds update -a
           ./scripts/feeds install -a
+          [ -d '~/base' ] && mv ~/base package/
           . $GITHUB_WORKSPACE/patches.sh
           . $GITHUB_WORKSPACE/merge_packages.sh
           mkdir -p tmpkg; cd ../
