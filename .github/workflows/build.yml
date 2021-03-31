@@ -11,11 +11,13 @@ on:
 
 jobs:
 
-  build:
-
+  build_packages:
+    name: Build ${{ github.event.client_payload.device || github.event.inputs.device }} packages
     runs-on: ubuntu-18.04
     env:
       DEVICE: ${{ github.event.client_payload.device || github.event.inputs.device }}
+      TG: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      DEPLOY_SSHKEY: ${{ secrets.SSH_KEY }}
     if: github.repository_owner=='My-Compile'
 
     steps:
@@ -39,7 +41,7 @@ jobs:
           curl -sL https://raw.githubusercontent.com/huyunlei2020/R2S/zstd-bin/zstd | sudo tee /usr/bin/zstd > /dev/null
           for i in {1..10}
           do
-            curl -sL --fail https://github.com/My-Compile/sshactions/releases/download/cache/lede.$DEVICE.img.zst.0$i || break
+            curl -sL --fail https://github.com/huyunlei2020/sshactions/releases/download/cache/lede.$DEVICE.img.zst.0$i || break
           done | zstdmt -d -o lede.img || (truncate -s 20g lede.img && mkfs.btrfs -M lede.img)
           LOOP_DEVICE=$(losetup -f) && echo "LOOP_DEVICE=$LOOP_DEVICE" >> $GITHUB_ENV
           sudo losetup -P --direct-io $LOOP_DEVICE lede.img
@@ -52,7 +54,7 @@ jobs:
           else
           sudo chown $USER:$(id -gn) lede && git clone -b openwrt-18.06-k5.4 --single-branch https://github.com/immortalwrt/immortalwrt lede
           fi
-      
+          
       - name: Update feeds and packages
         run: |
           cd ~/lede
@@ -62,10 +64,10 @@ jobs:
             pushd feeds/routing; git restore .; popd
             pushd feeds/telephony; git restore .; popd
           fi
-          [ -d 'package/base' ] && mv package/base ~/
+          [ -d package/base ] && mv package/base ~/
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-          [ -d '~/base' ] && mv ~/base package/
+          [ -d ~/base ] && mv ~/base package/
           . $GITHUB_WORKSPACE/patches.sh
           . $GITHUB_WORKSPACE/merge_packages.sh
           mkdir -p tmpkg; cd ../
@@ -80,12 +82,12 @@ jobs:
           sed -i 's/include ..\/..\//include $(TOPDIR)\/feeds\/luci\//' ../lede/tmpkg/luci-*/Makefile
           popd
           cd lede; rsync -ach -del --no-t --progress tmpkg/ package/base/; rm tmpkg -rf
-      
+          
       - name: Custom configure file
         run: |
           cd ~/lede
-          cat $GITHUB_WORKSPACE/$DEVICE.config.seed | sed '/CONFIG_PACKAGE_luci-app-/d' > .config
-      
+          cat $GITHUB_WORKSPACE/$DEVICE.config.seed | sed 's/\(CONFIG_PACKAGE_luci-app-.*=\)y/\1m/' > .config
+          
       - name: Build and deploy packages
         run: |
           cd ~/lede
@@ -95,16 +97,6 @@ jobs:
           while true; do make download -j && break || true; done
           make -j$[`nproc`+1] IGNORE_ERRORS=1
           mv `ls ~/lede/bin/targets/*/*/*imagebuilder*xz` ~/ib-$DEVICE.tar.xz
-          cat $GITHUB_WORKSPACE/$DEVICE.config.seed | sed '/CONFIG_PACKAGE_luci-app-/d' > .config
-          find package/ -type d -name luci-app-* | rev | cut -d'/' -f1 | rev | xargs -n1 -i echo "# CONFIG_PACKAGE_{} is not set" >> .config
-          make defconfig
-          mkdir -p files/local_feed/core files/local_feed/base
-          sudo mount --bind bin/targets/*/*/packages/ files/local_feed/core
-          sudo mount --bind bin/packages/*/base/ files/local_feed/base
-          pushd bin/ && . ../files/etc/opkg/distfeeds.conf | tee ../files/etc/opkg/distfeeds.conf && popd
-          make -j$[`nproc`+1]
-          sudo umount files/local_feed/core files/local_feed/base
-          rm files/etc/opkg/distfeeds.conf
           echo "======================="
           echo "Space usage:"
           echo "======================="
