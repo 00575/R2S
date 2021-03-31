@@ -1,7 +1,6 @@
 name: test
 
 on:
-
   workflow_dispatch:
   schedule:
     - cron: '10 22 * * *'
@@ -185,7 +184,7 @@ jobs:
     needs: build_packages
     if: always()
     name: Generate r2s firmware
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     env:
       DEVICE: r2s
 
