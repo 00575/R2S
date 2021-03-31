@@ -40,7 +40,7 @@ jobs:
           curl -sL https://raw.githubusercontent.com/huyunlei2020/R2S/zstd-bin/zstd | sudo tee /usr/bin/zstd > /dev/null
           for i in {1..10}
           do
-            curl -sL --fail https://github.com/huyunlei2020/sshactions/releases/download/cache/lede.$DEVICE.img.zst.0$i || break
+            curl -sL --fail https://github.com/My-Compile/sshactions/releases/download/cache/lede.$DEVICE.img.zst.0$i || break
           done | zstdmt -d -o lede.img || (truncate -s 20g lede.img && mkfs.btrfs -M lede.img)
           LOOP_DEVICE=$(losetup -f) && echo "LOOP_DEVICE=$LOOP_DEVICE" >> $GITHUB_ENV
           sudo losetup -P --direct-io $LOOP_DEVICE lede.img
@@ -180,10 +180,10 @@ jobs:
 
   generate_slim_firmware:
     needs: build_packages
-    name: Generate ${{ github.event.client_payload.device || github.event.inputs.device }} slim firmware
+    name: Generate r2s slim firmware
     runs-on: ubuntu-18.04
     env:
-      DEVICE: ${{ github.event.client_payload.device || github.event.inputs.device }}
+      DEVICE: r2s
 
     steps:
 
@@ -223,10 +223,10 @@ jobs:
   generate_firmware:
     needs: build_packages
     if: always()
-    name: Generate ${{ github.event.client_payload.device || github.event.inputs.device }} firmware
+    name: Generate r2s firmware
     runs-on: ubuntu-18.04
     env:
-      DEVICE: ${{ github.event.client_payload.device || github.event.inputs.device }}
+      DEVICE: r2s
 
     steps:
 
