@@ -1,14 +1,11 @@
 name: test
 
 on:
-  repository_dispatch:
+  #repository_dispatch:
   workflow_dispatch:
     inputs:
-      device:
-        description: 'select device to build'
-        default: 'r2s'
-        required: false
-
+      device: 'r2s'
+        
 jobs:
 
   build_packages:
