@@ -1,9 +1,8 @@
 name: test
 
 on:
-  repository_dispatch:
+
   workflow_dispatch:
-    inputs:
   schedule:
     - cron: '10 22 * * *'
 
@@ -11,7 +10,7 @@ jobs:
 
   build_packages:
     name: Build r2s packages
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     env:
       DEVICE: r2s
       TG: ${{ secrets.TELEGRAM_BOT_TOKEN }}
