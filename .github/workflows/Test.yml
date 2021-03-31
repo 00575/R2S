@@ -4,7 +4,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-    device: 'r2s'
+    device: r2s
   schedule:
     - cron: '10 21 * * *'
       
