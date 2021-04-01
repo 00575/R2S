@@ -88,15 +88,27 @@ jobs:
           cd ~/lede
           cat $GITHUB_WORKSPACE/$DEVICE.config.seed | sed 's/\(CONFIG_PACKAGE_luci-app-.*=\)y/\1m/' > .config
           
-      - name: Build and deploy packages
+      - name: Compile firmware
         run: |
           cd ~/lede
-          cat $GITHUB_WORKSPACE/extra_packages.seed >> .config
-          find package/ -type d -name luci-app-* | rev | cut -d'/' -f1 | rev | xargs -n1 -i echo CONFIG_PACKAGE_{}=m >> .config
-          make defconfig && cat .config
+          if [ ! -d build_dir ]; then
+          if [[ $DEVICE =~ ('r2s'|'r4s') ]]; then
+            sdk_src='https://downloads.openwrt.org/snapshots/targets/rockchip/armv8/openwrt-sdk-rockchip-armv8_gcc-8.4.0_musl.Linux-x86_64.tar.xz'
+          elif [[ $DEVICE == 'r1s' ]]; then
+            sdk_src='https://downloads.openwrt.org/snapshots/targets/sunxi/cortexa53/openwrt-sdk-sunxi-cortexa53_gcc-8.4.0_musl.Linux-x86_64.tar.xz'
+          fi
+          mkdir sdk && wget -qO- $sdk_src | tar -xJf - -C sdk
+          rm -rf build_dir staging_dir; mv sdk/*/build_dir ./ && rsync -a --ignore-existing sdk/*/staging_dir/ ./staging_dir/
+          rm -rf sdk
+          fi
+          sed -i '/\(tools\|toolchain\)\/Makefile/d' Makefile
+          echo -e '# CONFIG_SIGNED_PACKAGES is not set\n' >> .config
+          #grep -l -r --include=\Makefile '(STAGING_DIR_HOST)/bin/upx ' | xargs -n1 -i sed -i '/upx/d' {}
+          make defconfig
           while true; do make download -j && break || true; done
-          make -j$[`nproc`+1] IGNORE_ERRORS=1
-          mv `ls ~/lede/bin/targets/*/*/*imagebuilder*xz` ~/ib-$DEVICE.tar.xz
+          while true; do make package/download -j && break || true; done
+          make package/feeds/packages/ttyd/clean
+          make -j$(($(nproc) + 1)) || make V=sc
           echo "======================="
           echo "Space usage:"
           echo "======================="
@@ -105,6 +117,7 @@ jobs:
           du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
           du -h --max-depth=1 ./build_dir
           du -h --max-depth=1 ./bin
+
           
       - name: Prepare artifact
         run: |
@@ -153,7 +166,7 @@ jobs:
           tag: ${{env.strDate}}
           file_glob: true
           overwrite: true
-          release_name: ${{env.strDate}} 自动发布
+          release_name: ${{env.strDevice}} ${{env.strDate}} 自动发布
 
       - name: Save cache state
         run: |
