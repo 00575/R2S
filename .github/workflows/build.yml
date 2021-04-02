@@ -166,7 +166,7 @@ jobs:
           tag: ${{env.strDate}}
           file_glob: true
           overwrite: true
-          release_name: ${{env.strDevice}} ${{env.strDate}} 自动发布
+          release_name: R2s-${{env.strDate}} 自动发布
 
       - name: Save cache state
         run: |
