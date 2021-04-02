@@ -22,7 +22,7 @@ wget -qO- https://github.com/My-Compile/nanopi-R2S/raw/master/scripts/autoupdate
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-### 终端内在线升级方法： 
+### R2S-immortalwrt-固件 终端内在线升级方法： 
 
 ```bash
 wget -qO- https://github.com/huyunlei2020/R2S/raw/master/scripts/update.sh | sh
