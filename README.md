@@ -22,7 +22,7 @@ wget -qO- https://github.com/My-Compile/nanopi-R2S/raw/master/scripts/autoupdate
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-### R1S-R2S-R4S-openwrt固件 在线升级方法:  
+### R2S-openwrt固件 在线升级方法:  
 先安装好依赖
 ```bash
 opkg update
