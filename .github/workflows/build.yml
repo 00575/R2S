@@ -122,12 +122,16 @@ jobs:
       - name: Prepare artifact
         run: |
           cd
+          mkdir -p ./artifact/firmware
           mkdir -p ./artifact/package
+          mkdir -p ./artifact/buildinfo
           mkdir -p ./release
           cd lede
           cp -a bin tmp ../
           rm -rf $(find ./bin/targets/ -type d -name "packages")
+          cp -rf $(find ./bin/targets/ -type f) ../artifact/firmware/
           cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ../artifact/package/
+          cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ../artifact/buildinfo/
           cp $(ls -1 ../artifact/firmware/*img*) ../release/$DEVICE.img.gz
           pushd ../release/ && md5sum $DEVICE.img.gz > md5sum.txt && popd
           echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV
