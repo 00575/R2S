@@ -163,10 +163,10 @@ jobs:
         with:
           repo_token: ${{ secrets.workflow_token }}
           file: ./release/*
-          tag: ${{env.strDate}}
+          tag: R2S-${{env.strDate}}
           file_glob: true
           overwrite: true
-          release_name: R2s-${{env.strDate}} 自动发布
+          release_name: R2s-${{env.strDate}}
 
       - name: Save cache state
         run: |
