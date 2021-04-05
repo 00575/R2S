@@ -7,13 +7,11 @@ on:
 
 jobs:
 
-  build_packages:
-    name: Build ${{ github.event.client_payload.device || github.event.inputs.device }} packages
+  build:
+    
     runs-on: ubuntu-18.04
     env:
-      DEVICE: ${{ github.event.client_payload.device || github.event.inputs.device }}
-      TG: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      DEPLOY_SSHKEY: ${{ secrets.SSH_KEY }}
+      DEVICE: r2s
     if: github.repository_owner=='My-Compile'
 
     steps:
