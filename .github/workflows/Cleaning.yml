@@ -27,7 +27,7 @@ jobs:
     - name: Cleanup Old Action Artifacts
       uses: kolpav/purge-artifacts-action@master
       with:
-        token: ${{ github.token }}
+        token: ${{ secrets.workflow_token }}
         expire-in: 7d
         
   Cleanup-Workflow-Logs:
@@ -37,6 +37,6 @@ jobs:
       - name: Cleanup Workflow Logs
         uses: Mattraks/delete-workflow-runs@main
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.workflow_token }}
           repository: ${{ github.repository }}
           retain_days: 3
