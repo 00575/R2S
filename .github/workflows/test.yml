@@ -121,4 +121,13 @@ jobs:
           name: OpenWrt_package
           path: ./artifact/package/
 
-     
+      - name: Upload release asset
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.workflow_token }}
+          file: ./artifact/package/*.ipk
+          tag: R2S-ipk-${{env.strDate}}
+          file_glob: true
+          overwrite: true
+          release_name: R2s-ipk-${{env.strDate}}
+
