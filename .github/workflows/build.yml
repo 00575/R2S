@@ -2,8 +2,8 @@ name: build
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '10 22 * * *'
+  #schedule:
+    #- cron: '10 22 * * *'
 
 jobs:
 
