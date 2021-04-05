@@ -1,13 +1,7 @@
 name: build
 
 on:
-  #repository_dispatch:
   workflow_dispatch:
-    #inputs:
-      #device:
-        #description: 'select device to build'
-        #default: 'r2s'
-        #required: false
   schedule:
     - cron: '10 22 * * *'
 
@@ -15,7 +9,7 @@ jobs:
 
   build:
     
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     env:
       DEVICE: r2s
     if: github.repository_owner=='My-Compile'
