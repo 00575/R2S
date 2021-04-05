@@ -1,9 +1,15 @@
 name: build
 
 on:
+  #repository_dispatch:
   workflow_dispatch:
-  #schedule:
-    #- cron: '10 22 * * *'
+    #inputs:
+      #device:
+        #description: 'select device to build'
+        #default: 'r2s'
+        #required: false
+  schedule:
+    - cron: '10 22 * * *'
 
 jobs:
 
