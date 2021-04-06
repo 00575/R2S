@@ -121,12 +121,14 @@ jobs:
           name: OpenWrt_package
           path: ./artifact/package/
 
-      - name: Upload release asset
-        uses: svenstaro/upload-release-action@v2
+      - name: Create release
+        id: create_release
+        uses: ncipollo/release-action@v1.8.0
         with:
-          repo_token: ${{ secrets.workflow_token }}
-          file: ./artifact/package/*
+          name: R2s-ipk-${{env.strDate}}
+          allowUpdates: true
           tag: R2S-ipk-${{env.strDate}}
-          file_glob: true
-          overwrite: true
-          release_name: R2s-ipk-${{env.strDate}}
+          commit: master
+          replacesArtifacts: true
+          token: ${{ secrets.workflow_token }}
+          artifacts: ./artifact/package/*.ipk
