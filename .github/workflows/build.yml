@@ -120,15 +120,3 @@ jobs:
         with:
           name: OpenWrt_package
           path: ./artifact/package/
-
-      - name: Create release
-        id: create_release
-        uses: ncipollo/release-action@v1.8.0
-        with:
-          name: R2s-ipk-${{env.strDate}}
-          allowUpdates: true
-          tag: R2S-ipk-${{env.strDate}}
-          commit: master
-          replacesArtifacts: true
-          token: ${{ secrets.workflow_token }}
-          artifacts: ./artifact/package/*.ipk
