@@ -77,6 +77,7 @@ jobs:
           . x_assemble_artifact.sh
           release_tag="R2S-$(date +%Y-%m-%d)"
           echo "##[set-output name=release_tag;]$release_tag"
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -87,6 +88,7 @@ jobs:
           release_name: 精简${{ steps.assemble_artifact.outputs.release_tag }}
           draft: false
           prerelease: false
+
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
