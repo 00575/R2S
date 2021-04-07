@@ -35,11 +35,6 @@ jobs:
       - name: Patch Kernel
         run: . patch_kernel_5.4.sh
 
-              run: . 2_clone_source.sh master-v19.07.1 rk3328
-
-      - name: Patch Kernel
-        run: . patch_kernel_5.4.sh
-
       - name: Mods
         run: |
           cd friendlywrt-rk3328
