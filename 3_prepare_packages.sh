@@ -1,5 +1,5 @@
 ./scripts/feeds update -a && ./scripts/feeds install -a
-rm -rf feeds/packages/libs/libcap/ && svn co https://github.com/coolsnowwolf/packages/trunk/libs/libcap feeds/packages/libs/libcap
+rm -rf feeds/packages/libs/libcap/ && svn co https://github.com/openwrt/openwrt/trunk/package/libs/libcap feeds/packages/libs/libcap
 rm -rf feeds/packages/lang/golang/ && svn co https://github.com/coolsnowwolf/packages/trunk/lang/golang feeds/packages/lang/golang
 sed -i '/enable-jsonc/i\\t--disable-cloud \\' feeds/packages/admin/netdata/Makefile
 
@@ -29,3 +29,16 @@ rm -rf autocore/ && svn export https://github.com/coolsnowwolf/lede/trunk/packag
 svn co https://github.com/songchenwen/nanopi-r2s/trunk/luci-app-r2sflasher
 sed -i "s/option limit_enable '1'/option limit_enable '0'/" nft-qos/files/nft-qos.config
 cd ../../
+
+
+#git clone https://github.com/jerrykuku/lua-maxminddb.git
+#git clone https://github.com/jerrykuku/luci-app-vssr.git
+#cd luci-app-vssr/root/etc/
+#echo 'china_ssr.txt
+#config/black.list
+#config/white.list
+#dnsmasq.oversea/oversea_list.conf
+#dnsmasq.ssr/ad.conf
+#dnsmasq.ssr/gfw_base.conf
+#dnsmasq.ssr/gfw_list.conf' | xargs rm
+#cd ../../../
