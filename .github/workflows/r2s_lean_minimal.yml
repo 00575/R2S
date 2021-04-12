@@ -30,7 +30,7 @@ jobs:
         run: . 1_initialization_environment.sh
 
       - name: Clone Source
-        run: . 2_clone_source.sh master-v19.07.5 rk3328
+        run: . 2_clone_source.sh master-v19.07.1 rk3328
 
       - name: Patch Kernel
         run: . patch_kernel_5.4.sh
@@ -49,7 +49,7 @@ jobs:
           sed -i 's/=1/=0/g' package/kernel/linux/files/sysctl-br-netfilter.conf
           git apply ../../remove_ramfree.diff && git add .
           git commit -m 'reset'
-          git checkout master-v19.07.5
+          git checkout master-v19.07.1
           git rebase adc1a9a3676b8d7be1b48b5aed185a94d8e42728^ --onto tmp -X theirs
           rm -f target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch target/linux/generic/hack-4.14/999-net-patch-linux-kernel-to-support-shortcut-fe.patch
           git checkout upstream/lede-17.01 -- feeds.conf.default && sed -i -E 's/#(src-git.+)(helloworld.+)/\1\2/' feeds.conf.default
