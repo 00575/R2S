@@ -1,5 +1,5 @@
 ### 固件发布地址：
-https://github.com/My-Compile/nanopi-R2S/releases
+https://github.com/00575/nanopi-R2S/releases
 
 登录IP：192.168.2.1
 
@@ -16,7 +16,7 @@ opkg install libzstd
 ```
 然后下载脚本执行
 ```bash
-wget -qO- https://github.com/My-Compile/nanopi-R2S/raw/master/scripts/autoupdate.sh | sh
+wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/autoupdate.sh | sh
 ```
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
