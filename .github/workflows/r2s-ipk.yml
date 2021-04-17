@@ -8,12 +8,10 @@ on:
 jobs:
 
   build_packages:
-    name: Build ${{ github.event.client_payload.device || github.event.inputs.device }} packages
+    name: Build r2s packages
     runs-on: ubuntu-20.04
     env:
       DEVICE: r2s
-      TG: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      DEPLOY_SSHKEY: ${{ secrets.SSH_KEY }}
     if: github.repository_owner=='00575'
 
     steps:
@@ -45,8 +43,6 @@ jobs:
           if [ -d 'lede/.git' ]; then
           cd lede && git config --local user.email "action@github.com" && git config --local user.name "GitHub Action"
           git fetch && git reset --hard origin/openwrt-18.06-k5.4
-          #git remote set-branches --add origin openwrt-18.06
-          #git merge -X theirs --no-edit origin/openwrt-18.06
           else
           sudo chown $USER:$(id -gn) lede && git clone -b openwrt-18.06-k5.4 --single-branch https://github.com/immortalwrt/immortalwrt lede
           fi
@@ -101,24 +97,24 @@ jobs:
       - name: Prepare artifact
         run: |
           cd
-          mkdir -p ./artifact/firmware
+          #mkdir -p ./artifact/firmware
           mkdir -p ./artifact/package
-          mkdir -p ./artifact/buildinfo
-          mkdir -p ./release
+          #mkdir -p ./artifact/buildinfo
+          #mkdir -p ./release
           cd lede
           cp -a bin tmp ../
-          rm -rf $(find ./bin/targets/ -type d -name "packages")
-          cp -rf $(find ./bin/targets/ -type f) ../artifact/firmware/
+          #rm -rf $(find ./bin/targets/ -type d -name "packages")
+          #cp -rf $(find ./bin/targets/ -type f) ../artifact/firmware/
           cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ../artifact/package/
-          cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ../artifact/buildinfo/
-          cp $(ls -1 ../artifact/firmware/*img*) ../release/$DEVICE.img.gz
-          pushd ../release/ && md5sum $DEVICE.img.gz > md5sum.txt && popd
+          #cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ../artifact/buildinfo/
+          #cp $(ls -1 ../artifact/firmware/*img*) ../release/$DEVICE.img.gz
+          #pushd ../release/ && md5sum $DEVICE.img.gz > md5sum.txt && popd
           echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV
           echo "strDevice=$(echo $DEVICE | awk '{print toupper($0)}')" >> $GITHUB_ENV
           rm -rf bin tmp
-          zip -r ../artifact/package/r2s-ipk.zip ../artifact/package/*.ipk
+          zip -r ../artifact/r2s-ipk.gz ../artifact/package/*.ipk
           cd ..
-          mv artifact release $GITHUB_WORKSPACE
+          mv artifact $GITHUB_WORKSPACE
           
       - name: Deliver artifact
         uses: actions/upload-artifact@v2
@@ -130,7 +126,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.workflow_token }}
-          file: ./artifact/package/r2s-ipk.zip
+          file: ./artifact/r2s-ipk.gz
           tag: ${{env.strDate}}
           file_glob: true
           overwrite: true
