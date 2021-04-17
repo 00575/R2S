@@ -15,4 +15,4 @@ jobs:
             -X POST https://api.github.com/repos/${{ github.repository }}/actions/workflows/8056225/dispatches \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.workflow_token }}" \
-            -d '{"ref": "main", "inputs": {RK3328 penWrt 19.07 Build.yml}}'
+            -d '{"ref": "main"}'
