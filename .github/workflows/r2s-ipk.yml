@@ -118,6 +118,8 @@ jobs:
           rm -rf bin tmp
           cd ..
           mv artifact release $GITHUB_WORKSPACE
+          cd ../artifact
+          zip -r r2s-ipk.zip package
           
       - name: Deliver artifact
         uses: actions/upload-artifact@v2
