@@ -1,4 +1,4 @@
-name: Repo Dispatcher
+name: Repo RK3328 penWrt 19.07 Build.yml
 on:
   schedule:
     - cron: '30 21 * * *'
