@@ -3,7 +3,7 @@ name: build r2s 自用
 on:
   workflow_dispatch:
   schedule:
-    - cron: '10 22 * * *'
+    - cron: '55 23 * * *'
 
 jobs:
 
