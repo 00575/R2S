@@ -1,7 +1,7 @@
-name: Repo RK3328 penWrt 19.07 Build.yml
+name: Repo RK3328 19.07 Build
 on:
   schedule:
-    - cron: '30 21 * * *'
+    - cron: '30 21 */3 * *'
   workflow_dispatch:
     #ref: refs/heads/main
 
