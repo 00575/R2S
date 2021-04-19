@@ -22,7 +22,7 @@ rm -rf luci-theme-edge/ && git clone -b 18.06 https://github.com/garypang13/luci
 rm -rf luci-theme-infinityfreedom/ && git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom
 rm -rf luci-app-chinadns-ng/ && git clone https://github.com/WuSiYu/luci-app-chinadns-ng
 rm -rf openwrt-chinadns-ng/ && git clone https://github.com/pexcn/openwrt-chinadns-ng && sed -i 's/\$(PKG_BUILD_DIR)\/chinadns-ng-update-list\.sh/files\/chinadns-ng-update-list\.sh/g' openwrt-chinadns-ng/Makefile
-rm -rf v2ray/ && svn co https://github.com/immortalwrt/immortalwrt/openwrt-18.06/trunk/package/lean/v2ray
+rm -rf v2ray/ && svn co https://github.com/immortalwrt/immortalwrt/tree/openwrt-18.06/package/lean/v2ray
 #rm -rf v2ray-plugin/ && svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray-plugin
 rm -rf trojan/ && svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan
 rm -rf autocore/ && svn export https://github.com/coolsnowwolf/lede/trunk/package/lean/autocore
