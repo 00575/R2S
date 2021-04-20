@@ -1,4 +1,4 @@
-name: build r2s 自用
+name: r2s 自用
 
 on:
   workflow_dispatch:
