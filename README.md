@@ -31,7 +31,7 @@ https://github.com/a0575/R2S/releases
 https://github.com/a0575/R4S/releases
 
 
-#### 自用版
+#### 
 
 ```bash
 wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/update.sh | sh
