@@ -12,8 +12,8 @@ proceed_command sfdisk
 proceed_command losetup
 proceed_command resize2fs
 opkg install coreutils-truncate || true
-wget -P /tmp https://ghproxy.com/https://raw.githubusercontent.com/a0575/R2S/zstd-bin/truncate
-wget -P /tmp https://ghproxy.com/https://raw.githubusercontent.com/a0575/R2S/zstd-bin/ddnz
+wget -P /tmp https://ghproxy.com/https://raw.githubusercontent.com/00575/Nanopi/zstd-bin/truncate
+wget -P /tmp https://ghproxy.com/https://raw.githubusercontent.com/00575/Nanopi/zstd-bin/ddnz
 chmod +x /tmp/truncate /tmp/ddnz
 
 board_id=$(cat /etc/board.json | jsonfilter -e '@["model"].id' | sed 's/friendly.*,nanopi-//;s/xunlong,orangepi-//;s/^r1s-h5$/r1s/;s/^r1$/r1s-h3/;s/^r1-plus$/r1p/')
