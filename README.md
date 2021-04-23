@@ -7,7 +7,7 @@ https://github.com/00575/nanopi-R2S/releases
 
 密码：password
 
-### R2S精简固件 在线升级方法:  
+### R2S 2020稳定版固件 在线升级方法:  
 先安装好依赖
 ```bash
 opkg update
