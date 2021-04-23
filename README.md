@@ -1,4 +1,4 @@
-### 固件发布地址：
+### R2S 2020稳定版固件发布地址：
 https://github.com/00575/nanopi-R2S/releases
 
 登录IP：192.168.2.1
@@ -22,22 +22,16 @@ wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/autoupdate.sh |
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-### R2S-immortalwrt-固件 终端内在线升级方法： 
+### R2S-immortalwrt-固件： 
+
+https://github.com/a0575/R2S/releases
+
+### R4S-immortalwrt-固件： 
+
+https://github.com/a0575/R4S/releases
 
 
-多插件版
-
-```bash
-wget -qO- https://github.com/a0575/R2S/raw/master/scripts/update.sh | sh
-```
-
-纯净版
-
-```bash
-wget -qO- https://github.com/a0575/R2S/raw/master/scripts/update.sh | ver=-slim sh
-```
-
-自用版
+#### 自用版
 
 ```bash
 wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/update.sh | sh
