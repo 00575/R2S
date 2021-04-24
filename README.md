@@ -1,11 +1,7 @@
 ### R2S lean稳定版 固件发布地址：
 https://github.com/00575/nanopi-R2S/releases
 
-登录IP：192.168.2.1
-
-默认用户名：root
-
-密码：password
+登录IP：192.168.2.1  默认用户名：root  密码：password
 
 ###  在线升级方法:  
 先安装好依赖
@@ -30,10 +26,11 @@ https://github.com/a0575/R2S/releases
 
 https://github.com/a0575/R4S/releases
 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-#### 
+##### 以下为个人自用
 
 ```bash
-自用 wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/update.sh | sh
+wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/update.sh | sh
 ```
 
