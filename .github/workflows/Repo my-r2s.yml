@@ -3,7 +3,7 @@ on:
   schedule:
     - cron: '0 22 * * *'
   workflow_dispatch:
-    ref: refs/heads/main
+    ref: refs/heads/master
 
 jobs:
   build:
