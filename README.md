@@ -1,4 +1,4 @@
-### R2S 2020稳定版固件发布地址：
+### R2S lean稳定版 固件发布地址：
 https://github.com/00575/nanopi-R2S/releases
 
 登录IP：192.168.2.1
@@ -7,7 +7,7 @@ https://github.com/00575/nanopi-R2S/releases
 
 密码：password
 
-### R2S 2020稳定版固件 在线升级方法:  
+###  在线升级方法:  
 先安装好依赖
 ```bash
 opkg update
@@ -34,6 +34,6 @@ https://github.com/a0575/R4S/releases
 #### 
 
 ```bash
-wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/update.sh | sh
+自用 wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/update.sh | sh
 ```
 
