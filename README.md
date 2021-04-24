@@ -3,8 +3,7 @@ https://github.com/00575/nanopi-R2S/releases
 
 登录IP：192.168.2.1  默认用户名：root  密码：password
 
-#####终端内升级方法:  
-先安装好依赖
+##### 终端内升级方法:  
 ```bash
 opkg update
 opkg install zstd
