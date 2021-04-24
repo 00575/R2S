@@ -3,7 +3,7 @@ on:
   schedule:
     - cron: '0 22 * * *'
   workflow_dispatch:
-    ref: refs/heads/master
+    #ref: refs/heads/master
 
 jobs:
   build:
@@ -15,4 +15,4 @@ jobs:
             -X POST https://api.github.com/repos/${{ github.repository }}/actions/workflows/8056225/dispatches \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.workflow_token }}" \
-            -d '{"ref": "main"}'
+            -d '{"ref": "main", "inputs": {"device": "r2s"}}'
