@@ -5,11 +5,11 @@ https://github.com/00575/nanopi-R2S/releases
 
 ##### 终端内升级方法:  
 先安装好依赖
-``bash
+```bash
 opkg update
 opkg install zstd
 opkg install libzstd
-``
+```
 然后下载脚本执行
 ```bash
 wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/autoupdate.sh | sh
