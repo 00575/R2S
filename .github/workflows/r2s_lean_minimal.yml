@@ -80,7 +80,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.workflow_token }}
         with:
           tag_name: ${{ steps.assemble_artifact.outputs.release_tag }}
-          release_name: 2020稳定${{ steps.assemble_artifact.outputs.release_tag }}
+          release_name: lean-${{ steps.assemble_artifact.outputs.release_tag }}
           draft: false
           prerelease: false
 
