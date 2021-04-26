@@ -17,13 +17,11 @@ wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/autoupdate.sh |
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-### R2S-immortalwrt-固件： 
+### Nanopi-immortalwrt-固件： 
+(r1s r2s r4s r1p r1s-h3 x86)
 
-https://github.com/a0575/R2S/releases
+https://github.com/00575/Nanopi/releases
 
-### R4S-immortalwrt-固件： 
-
-https://github.com/a0575/R4S/releases
 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
