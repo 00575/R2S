@@ -17,7 +17,7 @@ wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/autoupdate.sh |
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-### Nanopi-immortalwrt-固件： 
+### Nanopi-openwrt固件发布地址： 
 (r1s r2s r4s r1p r1s-h3 x86)
 
 https://github.com/00575/Nanopi/releases
