@@ -1,9 +1,9 @@
 name: Repo my-r2s Build
 on:
   schedule:
-    - cron: '0 22 * * *'
+    - cron: '0 0 * * 5'
   workflow_dispatch:
-    ref: refs/heads/master
+    #ref: refs/heads/master
 
 jobs:
   build:
