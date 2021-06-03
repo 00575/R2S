@@ -27,11 +27,12 @@ https://github.com/00575/Nanopi/releases
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-##### 临时测试 #####
-
+##### 临时测试 升级#####
+18.06
 ```bash
 wget -qO- https://github.com/00575/nanopi/raw/master/scripts/update.sh | sh
 ```
+21.02
 ```bash
 wget -qO- https://github.com/00575/nanopi-21.02/raw/master/scripts/update.sh | sh
 ```
