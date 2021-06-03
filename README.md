@@ -30,6 +30,8 @@ https://github.com/00575/Nanopi/releases
 ##### 临时测试 #####
 
 ```bash
-wget -qO- https://github.com/00575/nanopi-R2S/raw/master/scripts/update.sh | sh
+wget -qO- https://github.com/00575/nanopi/raw/master/scripts/update.sh | sh
 ```
-
+```bash
+wget -qO- https://github.com/00575/nanopi-21.02/raw/master/scripts/update.sh | sh
+```
