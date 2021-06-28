@@ -2,13 +2,12 @@ diff --git a/package/lean/autocore/Makefile b/package/lean/autocore/Makefile
 index 03e4fb6..f774324 100644
 --- a/package/lean/autocore/Makefile
 +++ b/package/lean/autocore/Makefile
-@@ -16,9 +16,7 @@ include $(INCLUDE_DIR)/package.mk
+@@ -16,8 +16,7 @@ include $(INCLUDE_DIR)/package.mk
  define Package/autocore-arm
    TITLE:=Arm auto core loadbalance script.
    MAINTAINER:=CN_SZTL
 -  DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40xx||TARGET_ipq806x||TARGET_mvebu||TARGET_rockchip) \
--    +TARGET_bcm27xx:bcm27xx-userland +TARGET_bcm53xx:nvram \
--    +(TARGET_ipq40xx||TARGET_ipq806x):lm-sensors
+-    +TARGET_bcm27xx:bcm27xx-userland +TARGET_bcm53xx:nvram
 +  DEPENDS:=+bc +lm-sensors +ethtool
    VARIANT:=arm
  endef
@@ -17,7 +16,7 @@ diff --git a/package/lean/autocore/files/arm/sbin/cpuinfo b/package/lean/autocor
 index 5a525a5..6adabea 100755
 --- a/package/lean/autocore/files/arm/sbin/cpuinfo
 +++ b/package/lean/autocore/files/arm/sbin/cpuinfo
-@@ -4,20 +4,7 @@
+@@ -4,20 +4,8 @@
  [ -z "${cpu_arch}" ] && cpu_arch="ARMv8 Processor"
  cpu_cores="$(cat "/proc/cpuinfo" | grep "processor" | wc -l)"
  
@@ -29,14 +28,13 @@ index 5a525a5..6adabea 100755
 -	cpu_freq="$(cat "/proc/cpuinfo" | grep "BogoMIPS" | sed -n "1p" | awk -F ': ' '{print $2}')MHz"
 -else
 -	cpu_freq="$(expr $(cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq) / 1000)MHz"
+-fi
 +cpu_freq="$(expr $(cat /sys/devices/system/cpu/cpu[04]/cpufreq/cpuinfo_cur_freq) / 1000) MHz"
--fi
--
--if grep -q "ipq40xx" "/etc/openwrt_release"; then
--	sys_temp="$(sensors | grep -Eo '\+[0-9]+.+C' | sed ':a;N;$!ba;s/\n/ /g;s/+//g')"
--else
--	sys_temp="$(awk '{ printf("%.1f °C", $0 / 1000) }' /sys/class/thermal/thermal_zone0/temp)"
-+sys_temp="$(awk '{ printf("%.2f °C", $0 / 1000) }' /sys/class/thermal/thermal_zone0/temp)"
--fi
  
- echo -n "${cpu_arch} x ${cpu_cores} (${cpu_freq}, ${sys_temp})"
+-if grep -q "ipq40xx" "/etc/openwrt_release"; then
+-	sys_temp="$(awk '{ printf("%.1f°C ", $0 / 1000) }' /sys/class/ieee80211/phy*/device/hwmon/hwmon*/temp1_input)"
+-else
+-	sys_temp="$(awk '{ printf("%.1f°C ", $0 / 1000) }' /sys/class/thermal/thermal_zone0/temp)"
+-fi
++sys_temp="$(awk '{ printf("%.2f °C", $0 / 1000) }' /sys/class/thermal/thermal_zone0/temp)"
+ 
