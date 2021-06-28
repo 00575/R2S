@@ -38,3 +38,4 @@ index 5a525a5..6adabea 100755
 -fi
 +sys_temp="$(awk '{ printf("%.2f °C", $0 / 1000) }' /sys/class/thermal/thermal_zone0/temp)"
  
+ echo -n "${cpu_arch} x ${cpu_cores} (${cpu_freq}, ${sys_temp})"
