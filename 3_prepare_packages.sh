@@ -4,12 +4,11 @@ rm -rf feeds/packages/lang/golang/ && svn co https://github.com/coolsnowwolf/pac
 sed -i '/enable-jsonc/i\\t--disable-cloud \\' feeds/packages/admin/netdata/Makefile
 
 # fix docker build with golang
-rm -rf feeds/packages/utils/containerd && svn export https://github.com/coolsnowwolf/packages/trunk/utils/containerd feeds/packages/utils/containerd
-rm -rf feeds/packages/utils/docker feeds/packages/utils/docker-ce && svn export https://github.com/coolsnowwolf/packages/trunk/utils/docker feeds/packages/utils/docker
-rm -rf feeds/packages/utils/dockerd && svn export https://github.com/coolsnowwolf/packages/trunk/utils/dockerd feeds/packages/utils/dockerd
-rm -rf feeds/packages/utils/docker-compose && svn export https://github.com/coolsnowwolf/packages/trunk/utils/docker-compose feeds/packages/utils/docker-compose
-rm -rf feeds/packages/utils/libnetwork && svn export https://github.com/coolsnowwolf/packages/trunk/utils/libnetwork feeds/packages/utils/libnetwork
-rm -rf feeds/packages/utils/runc && svn export https://github.com/coolsnowwolf/packages/trunk/utils/runc feeds/packages/utils/runc
+rm -rf feeds/packages/utils/containerd && svn export https://github.com/biliwala/packages/branches/docker-ce/utils/containerd feeds/packages/utils/containerd
+rm -rf feeds/packages/utils/docker-ce && svn export https://github.com/biliwala/packages/branches/docker-ce/utils/docker-ce feeds/packages/utils/docker-ce
+rm -rf feeds/packages/utils/docker-compose && svn export https://github.com/biliwala/packages/branches/docker-ce/utils/docker-compose feeds/packages/utils/docker-compose
+rm -rf feeds/packages/utils/libnetwork && svn export https://github.com/biliwala/packages/branches/docker-ce/utils/libnetwork feeds/packages/utils/libnetwork
+rm -rf feeds/packages/utils/runc && svn export https://github.com/biliwala/packages/branches/docker-ce/utils/runc feeds/packages/utils/runc
 
 cd package/lean/
 if [[ `pwd` == *"rk3328"* ]]; then
@@ -30,7 +29,7 @@ rm -rf luci-app-ssr-plus/ && svn co https://github.com/fw876/helloworld/trunk/lu
 rm -rf shadowsocksr-libev/ && svn co https://github.com/fw876/helloworld/trunk/shadowsocksr-libev
 rm -rf trojan/ && svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan
 rm -rf autocore/ && svn export https://github.com/coolsnowwolf/lede/trunk/package/lean/autocore
-rm -rf luci-app-unblockmusic/ && svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-unblockmusic
+rm -rf luci-app-unblockmusic/ && svn export -r3322 https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-unblockmusic
 svn co https://github.com/songchenwen/nanopi-r2s/trunk/luci-app-r2sflasher
 sed -i "s/option limit_enable '1'/option limit_enable '0'/" nft-qos/files/nft-qos.config
 cd ../../
