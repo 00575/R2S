@@ -32,7 +32,3 @@ r2s-18.06
 ```bash
 wget -qO- https://github.com/00575/nanopi/raw/master/scripts/update.sh | sh
 ```
-r2s-21.02
-```bash
-wget -qO- https://github.com/00575/nanopi-21.02/raw/master/scripts/update.sh | sh
-```
