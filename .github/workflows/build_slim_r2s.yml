@@ -1,4 +1,4 @@
-name: DIY
+name: build_slim_r2s
 
 on:
   workflow_dispatch:
