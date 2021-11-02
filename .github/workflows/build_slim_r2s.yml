@@ -10,12 +10,11 @@ on:
 
 jobs:
 
-  build_packages:
-    name: Build ${{ github.event.client_payload.device || github.event.inputs.device }}
+  build:
     runs-on: ubuntu-20.04
     env:
       DEVICE: ${{ github.event.client_payload.device || github.event.inputs.device }}
-    #if: github.event.repository.owner.id == github.event.sender.id
+    if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
 
