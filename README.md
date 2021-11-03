@@ -17,3 +17,8 @@ slim纯净版
 ```bash
 wget -qO- https://github.com/00575/Nanopi/raw/master/scripts/autoupdate.sh | ver=-slim sh
 ```
+
+临时测试
+```bash
+wget -qO- https://github.com/00575/R2S/raw/master/scripts/Test-update.sh | sh
+```
