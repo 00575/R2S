@@ -66,7 +66,7 @@ jobs:
         with:
           repo_token: ${{ secrets.workflow_token }}
           file: ./release/*
-          tag: Test-${{env.strDate}}
+          tag: ${{env.strDate}}
           file_glob: true
           overwrite: true
           release_name: r2s-${{env.strDate}}    
