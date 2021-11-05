@@ -1,6 +1,7 @@
 name: r2s-Self-use
 
 on:
+  repository_dispatch:
   workflow_dispatch:
 
 jobs:
