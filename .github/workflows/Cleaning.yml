@@ -1,10 +1,10 @@
 name: Cleaning
 
 on:
-  #schedule:
-    #- cron: 0 0 */3 * *
-  watch:
-    types: started
+  schedule:
+    - cron: 0 0 */3 * *
+  #watch:
+    #types: started
 
 jobs:
   
