@@ -10,7 +10,7 @@ on:
     - cron: 00 22 * * *
 
 jobs:
-  jell:
+  Checker:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,7 +42,7 @@ jobs:
       if: steps.cacheHash.outputs.cache-hit != 'true'
       uses: peter-evans/repository-dispatch@v1
       with:
-        token: ${{ secrets.REPO_TOKEN }}
+        token: ${{ secrets.WORKFLOW_TOKEN }}
         event-type: ${{ env.date }} 
  
     - name: 删除工作流
