@@ -43,7 +43,7 @@ jobs:
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.WORKFLOW_TOKEN }}
-        event-type: ${{ update-env.date }} 
+        event-type: update-${{ env.date }} 
  
     - name: 删除工作流
       uses: GitRML/delete-workflow-runs@main
