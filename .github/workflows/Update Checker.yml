@@ -33,7 +33,7 @@ jobs:
         git push
         
     - name: 触发编译
-      if: steps.update-checker.outputs.cache-hit != 'true'
+      if: steps.update-checker.outputs.status == 'success' && !cancelled()
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.WORKFLOW_TOKEN }}
