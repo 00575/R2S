@@ -20,8 +20,7 @@ jobs:
         #echo "date=$(date +'%m/%d_%Y_%H/%M')" >> $GITHUB_ENV
         echo "date=$(date +%Y.'%m.%d')" >> $GITHUB_ENV
         
-    - name: 检查更新文件
-      id: update-checker
+    - name: 下载更新文件
       run: |
         git config --global user.name 'a0575' && git config --global user.email 'huyunlei0377@gmail.com'
         wget https://github.com/00575/Nanopi/raw/master/common.seed -O common.seed
