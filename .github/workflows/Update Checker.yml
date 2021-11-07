@@ -24,9 +24,9 @@ jobs:
       id: update-checker
       run: |
         git config --global user.name 'a0575' && git config --global user.email 'huyunlei0377@gmail.com'
-        wget https://github.com/00575/Nanopi/raw/master/common.seed
-        wget https://github.com/00575/Nanopi/raw/master/r2s.config.seed
-        wget -P scripts/ https://github.com/00575/Nanopi/raw/master/scripts/merge_files.sh
+        wget https://github.com/00575/Nanopi/raw/master/common.seed -O common.seed
+        wget https://github.com/00575/Nanopi/raw/master/r2s.config.seed -O common.seed
+        wget -qO scripts/ https://github.com/00575/Nanopi/raw/master/scripts/merge_files.sh
         git add .
         git checkout .
         git commit -am 'update-${{ env.date }}'
