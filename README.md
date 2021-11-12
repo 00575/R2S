@@ -20,7 +20,7 @@ wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate.sh | ver=-s
 
 5.10.x内核 slim纯净版
 ```bash
-wget -qO- https://github.com/00575/R2S/raw/master/scripts/5.10.x.sh | ver=-slim sh
+wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate_5.10.x.sh | ver=-slim sh
 ```
 
 临时测试
@@ -28,5 +28,5 @@ wget -qO- https://github.com/00575/R2S/raw/master/scripts/5.10.x.sh | ver=-slim 
 wget -qO- https://github.com/00575/R2S/raw/master/scripts/Test-update.sh | sh
 ```
 ```bash
-wget -qO- https://github.com/00575/R2S/raw/master/scripts/Test-5.10.x.sh | sh
+wget -qO- https://github.com/00575/R2S/raw/master/scripts/Test-update_5.10.x.sh | sh
 ```
