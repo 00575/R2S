@@ -1,4 +1,4 @@
-name: build_slim_r2s
+name: build_5.4.x_slim_r2s
 
 on:
   repository_dispatch:
