@@ -17,12 +17,10 @@ slim版固件只有OpenWrt本体，但内置了“本地软件源”，包含大
 ```bash
 wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate.sh | ver=-slim sh
 ```
-
 5.10.x内核 slim纯净版
 ```bash
 wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate_5.10.x.sh | ver=-slim sh
 ```
-
 
 临时测试
 ```bash
