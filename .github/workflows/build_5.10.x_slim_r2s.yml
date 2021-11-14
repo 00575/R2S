@@ -62,4 +62,5 @@ jobs:
           tag: ${{env.strDate}}_5.10.x
           file_glob: true
           overwrite: true
-          release_name: r2s-${{env.strDate}}    
+          release_name: ${{env.strDate}}发布
+          body: "${{env.strDate}}编译5.10.X内核"
