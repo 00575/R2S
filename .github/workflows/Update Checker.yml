@@ -6,7 +6,7 @@ on:
     - cron: 00 22 * * *
 
 jobs:
-  git update:
+  update:
     continue-on-error: true
     runs-on: ubuntu-20.04
 
