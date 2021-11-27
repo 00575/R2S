@@ -55,6 +55,10 @@ jobs:
       run: |
         echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
     
+    - name: 设置当前的日期
+      run: |
+        echo "date=$(date +%Y.'%m.%d')" >> $GITHUB_ENV
+ 
     - name: Trigger build
       if: steps.cacheHash.outputs.cache-hit != 'true'
       uses: peter-evans/repository-dispatch@v1
