@@ -33,11 +33,29 @@ jobs:
         git commit -am 'update-${{ env.date }}'
         git push
         
-    - name: 触发编译
-      if: success()
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone --depth 1 https://github.com/00575/Nanopi -b master .
+        echo "::set-output name=commitHash::$(git rev-parse HEAD)"
+    
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@v2
+      with:
+        path: .commitHash
+        key: HEAD-${{ steps.getHash.outputs.commitHash }}
+
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
+    
+    - name: Trigger build
+      if: steps.cacheHash.outputs.cache-hit != 'true'
       uses: peter-evans/repository-dispatch@v1
       with:
-        token: ${{ secrets.WORKFLOW_TOKEN }}
+        token: ${{ secrets.workflow_token }}
         event-type: update-${{ env.date }} 
  
     - name: 删除工作流
