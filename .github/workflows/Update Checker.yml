@@ -32,7 +32,11 @@ jobs:
         git checkout .
         git commit -am 'update-${{ env.date }}'
         git push
-        
+     
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:   
     - name: Get Commit Hash
       id: getHash
       run: |
