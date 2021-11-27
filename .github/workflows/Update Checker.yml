@@ -33,7 +33,7 @@ jobs:
         git commit -am 'update-${{ env.date }}'
         git push
      
-  Trigger build:
+  build:
     runs-on: ubuntu-20.04
 
     steps:   
