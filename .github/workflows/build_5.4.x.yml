@@ -1,4 +1,4 @@
-name: build_5.4.x_slim_r2s
+name: build_5.4.x
 
 on:
   repository_dispatch:
@@ -63,4 +63,4 @@ jobs:
           file_glob: true
           overwrite: true
           release_name: ${{env.strDate}}发布
-          body: "${{env.strDate}}编译5.4.X内核"    
+          body: "5.4.X内核编译R2S纯净固件"
