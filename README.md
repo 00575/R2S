@@ -21,5 +21,5 @@ wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate_5.10.x.sh |
 TEST:
 
 ```bash
-wget -qO- https://github.com/00575/R2S/raw/master/scripts/Test-update_5.10.x.sh | sh
+wget -qO- https://github.com/00575/R2S/raw/master/scripts/Test-update.sh | sh
 ```
