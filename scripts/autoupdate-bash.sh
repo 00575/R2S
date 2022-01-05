@@ -1,4 +1,11 @@
 #!/bin/bash
+
+get_latest_release() {
+	curl --silent "https://api.github.com/repos/$1/releases/latest" |	# Get latest release from GitHub api
+	grep '"tag_name":' |												# Get tag line
+	sed -E 's/.*"([^"]+)".*/\1/'										# Pluck JSON value
+}
+
 set -e $1
 
 opkg update || true
@@ -12,41 +19,28 @@ proceed_command sfdisk
 proceed_command losetup
 proceed_command resize2fs
 opkg install coreutils-truncate || true
-wget -NP /tmp https://ghproxy.com/https://raw.githubusercontent.com/00575/Nanopi/zstd-bin/truncate
-wget -NP /tmp https://ghproxy.com/https://raw.githubusercontent.com/00575/Nanopi/zstd-bin/ddnz
-chmod +x /tmp/truncate /tmp/ddnz
 
-board_id=$(cat /etc/board.json | jsonfilter -e '@["model"].id' | sed 's/friendly.*,nanopi-//;s/xunlong,orangepi-//;s/^r1s-h5$/r1s/;s/^r1$/r1s-h3/;s/^r1-plus$/r1p/;s/default-string-default-string/x86/')
+board_id=$(cat /etc/board.json | jsonfilter -e '@["model"].id' | sed 's/friendly.*,nanopi-//;s/xunlong,orangepi-//;s/^r1s-h5$/r1s/;s/^r1$/r1s-h3/;s/^r1-plus$/r1p/;s/default-string-default-string/x86/;s/vmware-inc-vmware7-1/x86/')
 mount -t tmpfs -o remount,size=850m tmpfs /tmp
 rm -rf /tmp/upg && mkdir /tmp/upg && cd /tmp/upg
 
-set +e
-wget https://ghproxy.com/https://github.com/00575/R2S/releases/download/Test-$(date +%Y-%m-%d)_5.10.x/$board_id$ver.img.gz -O- | gzip -dc > $board_id.img
-if [ $? -eq 0 ]; then
-	wget https://ghproxy.com/https://github.com/00575/R2S/releases/download/Test-$(date +%Y-%m-%d)_5.10.x/$board_id$ver.img.md5 -O md5sum.txt
-	echo -e '\e[92m今天固件已下载，准备解压\e[0m'
-else
-	echo -e '\e[91m今天的固件还没更新，尝试下载昨天的固件\e[0m'
-	wget https://ghproxy.com/https://github.com/00575/R2S/releases/download/Test-$(date -d "@$(( $(busybox date +%s) - 86400))" +%Y-%m-%d)_5.10.x/$board_id$ver.img.gz -O- | gzip -dc > $board_id.img
-	if [ $? -eq 0 ]; then
-		wget https://ghproxy.com/https://github.com/00575/R2S/releases/download/Test-$(date -d "@$(( $(busybox date +%s) - 86400))" +%Y-%m-%d)_5.10.x/$board_id$ver.img.md5 -O md5sum.txt
-		echo -e '\e[92m昨天的固件已下载，准备解压\e[0m'
-	else
-		echo -e '\e[91m没找到最新的固件，脚本退出\e[0m'
-		exit 1
-	fi
+latest_release_tag=`get_latest_release 00575/R2S`
+echo -e '\e[92m准备更新到'$latest_release_tag'\e[0m'
+md5sum=`wget https://ghproxy.com/https://github.com/00575/R2S/releases/download/$latest_release_tag/$board_id$ver.img.gz -O- | tee >(gzip -dc>$board_id.img) | md5sum | awk '{print $1}'`
+if [ "$md5sum" != "d41d8cd98f00b204e9800998ecf8427e" ]; then
+	wget https://ghproxy.com/https://github.com/00575/R2S/releases/download/$latest_release_tag/$board_id$ver.img.gz.md5 -O md5sum.txt
+	echo -e '\e[92m'$latest_release_tag'固件已下载\e[0m'
 fi
 
-set -e
-
-sed -i 's/-slim//;s/-with-docker//' md5sum.txt
-if [ `md5sum -c md5sum.txt|grep -c "OK"` -eq 0 ]; then
+md5r=`awk '{print $1}' md5sum.txt`
+if [ $md5r != $md5sum ]; then
 	echo -e '\e[91m固件HASH值匹配失败，脚本退出\e[0m'
 	exit 1
 fi
 
 mv $board_id.img FriendlyWrt.img
 block_device='mmcblk0'
+[ ! -d /sys/block/$block_device ] && block_device='mmcblk1'
 [ $board_id = 'x86' ] && block_device='sda'
 bs=`expr $(cat /sys/block/$block_device/size) \* 512`
 truncate -s $bs FriendlyWrt.img || ../truncate -s $bs FriendlyWrt.img
@@ -61,6 +55,9 @@ sleep 10
 cd /mnt/img
 sysupgrade -b back.tar.gz
 tar zxf back.tar.gz
+echo 'opkg update' > packages_needed
+opkg list-installed | grep "luci-i18n\|luci-app" | cut -d\  -f1 | sort -r | xargs -n1 echo opkg install --force-overwrite >> packages_needed
+[ x$ver == 'x-slim' ] && sed -i '/exit/i\sed -i "/packages_needed/d" /etc/rc.local; [ -e /packages_needed ] && (mv /packages_needed /packages_needed.installed && sh /packages_needed.installed)\' etc/rc.local
 if ! grep -q macaddr /etc/config/network; then
 	echo -e '\e[91m注意：由于已知的问题，“网络接口”配置无法继承，重启后需要重新设置WAN拨号和LAN网段信息\e[0m'
 	rm etc/config/network;
@@ -82,8 +79,7 @@ echo -e '\e[92m开始写入，请勿中断...\e[0m'
 if [ -f FriendlyWrt.img ]; then
 	echo 1 > /proc/sys/kernel/sysrq
 	echo u > /proc/sysrq-trigger && umount / || true
-	#pv FriendlyWrt.img | dd of=/dev/$block_device conv=fsync
-	../ddnz FriendlyWrt.img /dev/$block_device
+	dd if=FriendlyWrt.img of=/dev/$block_device oflag=direct conv=sparse status=progress bs=1M
 	echo -e '\e[92m刷机完毕，正在重启...\e[0m'
 	echo b > /proc/sysrq-trigger
 fi
