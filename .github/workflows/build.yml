@@ -1,4 +1,4 @@
-name: build_5.10.x
+name: build_5.10
 
 on:
   repository_dispatch:
@@ -30,7 +30,7 @@ jobs:
           sudo apt update && sudo apt install qemu-utils
           sudo sysctl vm.swappiness=0
           ulimit -SHn 65000
-          curl -L https://github.com/00575/5.10.x_cache/releases/download/cache/ib-r2s.tar.xz | tar -Jxvf -
+          curl -L https://github.com/00575/cache-build/releases/download/cache/ib-r2s.tar.xz | tar -Jxvf -
           mv *imagebuilder* ib && cd ib
           . $GITHUB_WORKSPACE/scripts/merge_files.sh
           mkdir -p files/local_feed && sudo mount --bind packages files/local_feed
@@ -63,4 +63,4 @@ jobs:
           file_glob: true
           overwrite: true
           release_name: ${{env.strDate}}发布
-          body: "5.10.X内核编译R2S纯净固件"
+          body: "5.10内核编译R2S纯净固件"
