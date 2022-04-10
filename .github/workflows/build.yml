@@ -1,4 +1,4 @@
-name: build_5.10
+name: build_5.15
 
 on:
   repository_dispatch:
@@ -63,4 +63,4 @@ jobs:
           file_glob: true
           overwrite: true
           release_name: ${{env.strDate}}发布
-          body: "5.10内核编译R2S纯净固件"
+          body: "5.15内核编译R2S纯净固件"
