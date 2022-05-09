@@ -1,4 +1,4 @@
-name: Auto build
+name: build-5.10
 
 on:
   repository_dispatch:
