@@ -31,9 +31,13 @@ wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-5.4.sh | sh
 ```bash
 wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-bash.sh | ver=-slim bash
 ```
++ docker版
+```bash
+wget -qO- https://github.com/00575/Nanopi/raw/master/scripts/autoupdate-bash.sh | ver=-with-docker bash
 ```
-TEST:
+###########
 
+TEST:
 ```bash
 wget -qO- https://github.com/00575/R2S/raw/master/scripts/Test-update.sh | sh
 ```
