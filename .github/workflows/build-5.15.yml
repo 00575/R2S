@@ -1,26 +1,17 @@
 name: build-5.15
 
 on:
+  repository_dispatch:
   workflow_dispatch:
-    inputs:
-      device:
-        description: 'select device to build'
-        default: 'r2s'
-        required: false
-      branch:
-        description: 'seleclt openwrt branch'
-        default: 'master'
-        required: false
 
 jobs:
 
   build_packages:
-    name: Build ${{ github.event.client_payload.device || github.event.inputs.device }} packages
+    name: r2s
     runs-on: ubuntu-20.04
     env:
-      DEVICE: ${{ github.event.client_payload.device || github.event.inputs.device }}
-      BRANCH: ${{ github.event.client_payload.branch || github.event.inputs.branch }}
-      TG: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      DEVICE: r2s
+      BRANCH: master
     if: github.repository_owner=='00575'
     
     steps:
@@ -162,11 +153,10 @@ jobs:
           set -e
   generate_slim_firmware:
     needs: build_packages
-    name: Generate ${{ github.event.client_payload.device || github.event.inputs.device }} slim firmware
+    name: Generate r2s slim firmware
     runs-on: ubuntu-18.04
     env:
-      DEVICE: ${{ github.event.client_payload.device || github.event.inputs.device }}
-
+      DEVICE: r2s
     steps:
 
       - uses: actions/checkout@v2
@@ -210,10 +200,10 @@ jobs:
   generate_firmware:
     needs: build_packages
     if: always()
-    name: Generate ${{ github.event.client_payload.device || github.event.inputs.device }} firmware
+    name: Generate r2s firmware
     runs-on: ubuntu-18.04
     env:
-      DEVICE: ${{ github.event.client_payload.device || github.event.inputs.device }}
+      DEVICE: r2s
 
     steps:
 
