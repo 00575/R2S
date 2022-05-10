@@ -193,7 +193,7 @@ jobs:
         with:
           repo_token: ${{ secrets.workflow_token }}
           file: ./release/*
-          tag: 5.4内核
+          tag: 5.4内核-${{env.strDate}}
           file_glob: true
           overwrite: true
           release_name: ${{env.strDate}} -5.4内核纯净版
@@ -256,7 +256,7 @@ jobs:
         with:
           repo_token: ${{ secrets.workflow_token }}
           file: ./release/*
-          tag: 5.4内核
+          tag: 5.4内核-${{env.strDate}}
           file_glob: true
           overwrite: true
           release_name: ${{env.strDate}} -5.4内核-多插件版
