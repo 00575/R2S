@@ -36,7 +36,7 @@ wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-bash.sh | v
 wget -qO- https://github.com/00575/Nanopi/raw/master/scripts/autoupdate-bash.sh | ver=-with-docker bash
 ```
 #########################
-+ 以下是新固件测试 切勿使用
+【以下是新固件测试 切勿使用】
 ```bash
 wget -qO- https://github.com/00575/R2S/raw/master/scripts/Test-update.sh | sh
 ```
