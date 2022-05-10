@@ -1,4 +1,4 @@
-name: build-5.10
+name: build-5.15
 
 on:
   workflow_dispatch:
@@ -70,7 +70,7 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
           . $GITHUB_WORKSPACE/scripts/merge_packages.sh
-          . $GITHUB_WORKSPACE/scripts/patches_5.10.sh
+          . $GITHUB_WORKSPACE/scripts/patches_5.15.sh
           cd
           svn export https://github.com/openwrt/luci luci
           pushd luci
@@ -146,17 +146,17 @@ jobs:
           sudo losetup -d $LOOP_DEVICE
           export AUTH="Authorization: token ${{ secrets.workflow_token }}"
           export cache_path='github.com/repos/00575/cache-build/releases'
-          export cache_repo_id='66350770'
+          export cache_repo_id='66351022'
           zstdmt -c --long lede.img | split --numeric=1 -b 2000m - lede.$DEVICE.img.zst.
           while true; do
-          ret=$(curl -sH "$AUTH" "https://api.$cache_path/tags/cache-5.10")
+          ret=$(curl -sH "$AUTH" "https://api.$cache_path/tags/cache-5.15")
           echo $ret | jq -r '.assets[] | select(.name | contains ("'$DEVICE'.img")).id' | \
           xargs -n1 -i curl -X DELETE -H "$AUTH" "https://api.$cache_path/assets/{}"
           echo $ret | jq -r '.assets[] | select(.name == "ib-'$DEVICE'.tar.xz").id' | \
           xargs -n1 -i curl -X DELETE -H "$AUTH" "https://api.$cache_path/assets/{}"
           ls *img.zst* ib-$DEVICE.tar.xz | parallel --wc 'while true; do curl -T {} -H "$AUTH" -H "Content-Type: application/octet-stream" "https://uploads.$cache_path/$cache_repo_id/assets?name={}" && break || true; done'
           set +e
-          for i in {1..20}; do curl -sL --fail https://github.com/00575/cache-build/releases/download/cache-5.10/lede.$DEVICE.img.zst.0$i || break; done | zstdmt -d -o /dev/null
+          for i in {1..20}; do curl -sL --fail https://github.com/00575/cache-build/releases/download/cache-5.15/lede.$DEVICE.img.zst.0$i || break; done | zstdmt -d -o /dev/null
           if [ $? -eq 0 ]; then break; fi
           done
           set -e
@@ -177,7 +177,7 @@ jobs:
         run: |
           sudo apt update && sudo apt install qemu-utils
           sudo sysctl vm.swappiness=0
-          curl -L https://github.com/00575/cache-build/releases/download/cache-5.10/ib-$DEVICE.tar.xz | tar -Jxvf -
+          curl -L https://github.com/00575/cache-build/releases/download/cache-5.15/ib-$DEVICE.tar.xz | tar -Jxvf -
           mv *imagebuilder* ib && cd ib
           . $GITHUB_WORKSPACE/scripts/merge_files.sh
           mkdir -p files/local_feed && sudo mount --bind packages files/local_feed
@@ -201,11 +201,11 @@ jobs:
         with:
           repo_token: ${{ secrets.workflow_token }}
           file: ./release/*
-          tag: 5.10内核
+          tag: 5.15内核
           file_glob: true
           overwrite: true
-          release_name: ${{env.strDate}} -5.10内核纯净版
-          body: "5.10内核编译"
+          release_name: ${{env.strDate}} -5.15内核纯净版
+          body: "5.15内核编译"
 
   generate_firmware:
     needs: build_packages
@@ -225,7 +225,7 @@ jobs:
         run: |
           sudo apt update && sudo apt install qemu-utils
           sudo sysctl vm.swappiness=0
-          curl -L https://github.com/00575/cache-build/releases/download/cache-5.10/ib-$DEVICE.tar.xz | tar -Jxvf -
+          curl -L https://github.com/00575/cache-build/releases/download/cache-5.15/ib-$DEVICE.tar.xz | tar -Jxvf -
            mv *imagebuilder* ib && cd ib
           . $GITHUB_WORKSPACE/scripts/merge_files.sh
           sed -i '/local/d;s/#//' files/etc/opkg/distfeeds.conf
@@ -264,8 +264,8 @@ jobs:
         with:
           repo_token: ${{ secrets.workflow_token }}
           file: ./release/*
-          tag: 5.10内核
+          tag: 5.15内核
           file_glob: true
           overwrite: true
-          release_name: ${{env.strDate}} -5.10内核-多插件版
-          body: "5.10内核编译"
+          release_name: ${{env.strDate}} -5.15内核-多插件版
+          body: "5.15内核编译"
