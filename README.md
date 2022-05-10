@@ -15,11 +15,19 @@ slim版固件只有OpenWrt本体，但内置了“本地软件源”，包含大
 
 + 5.15内核 纯净版
 ```bash
-wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-bash.sh | ver=-slim bash
+wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-5.15.sh | sh
 ```
-+ 多插件版5.15内核升级
++ 5.10内核 纯净版
 ```bash
-wget -qO- https://github.com/00575/Nanopi/raw/master/scripts/autoupdate-bash.sh | bash
+wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-5.10.sh | sh
+```
++ 5.4内核 纯净版
+```bash
+wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-5.4.sh | sh
+```
++ 多插件版升级地址:
+```bash
+https://github.com/00575/Nanopi/
 ```
 TEST:
 
