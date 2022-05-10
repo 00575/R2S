@@ -194,7 +194,7 @@ jobs:
           tag: 5.4内核-${{env.strDate}}
           file_glob: true
           overwrite: true
-          release_name: ${{env.strDate}} -5.4内核纯净版
+          release_name: ${{env.strDate}}  5.4内核纯净版
           body: "5.4内核编译"
 
   generate_firmware:
@@ -253,5 +253,5 @@ jobs:
           tag: 5.4内核-${{env.strDate}}
           file_glob: true
           overwrite: true
-          release_name: ${{env.strDate}} -5.4内核-多插件版
+          release_name: ${{env.strDate}}  5.4内核-多插件版
           body: "5.4内核编译"
