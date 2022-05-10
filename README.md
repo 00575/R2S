@@ -35,7 +35,7 @@ wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-bash.sh | v
 ```bash
 wget -qO- https://github.com/00575/Nanopi/raw/master/scripts/autoupdate-bash.sh | ver=-with-docker bash
 ```
-###########
+######################
 
 TEST:
 ```bash
