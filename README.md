@@ -25,9 +25,12 @@ wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-5.10.sh | s
 ```bash
 wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-5.4.sh | sh
 ```
-+ 多插件版升级地址:
++ 多插件版升级
 ```bash
-https://github.com/00575/Nanopi/
++ 5.15内核 纯净版
+```bash
+wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-bash.sh | ver=-slim bash
+```
 ```
 TEST:
 
