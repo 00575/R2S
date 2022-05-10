@@ -237,9 +237,7 @@ jobs:
           #rm -rf $DEVICE.img.gz.md5
           echo "strDate=$(TZ=UTC-8 date +%Y-%m-%d)" >> $GITHUB_ENV
           echo "strDevice=$(echo $DEVICE | awk '{print toupper($0)}')" >> $GITHUB_ENV
-          if [[ ${{ github.event.client_payload.device || github.event.inputs.device }} == *"r1s"* ]]; then
-            exit 0
-          fi
+          
           cd $GITHUB_WORKSPACE/ib
           rm -rf bin/
           LUCI=$(cat $GITHUB_WORKSPACE/$DEVICE.config.seed $GITHUB_WORKSPACE/common.seed | grep CONFIG_PACKAGE_luci-app | sed 's/CONFIG_PACKAGE_//;s/=y//' | xargs -n1 -i grep -o {} package.files | sort -u | xargs echo)
