@@ -40,6 +40,7 @@ merge_package https://github.com/messense/aliyundrive-webdav/trunk/openwrt/aliyu
 merge_package https://github.com/messense/aliyundrive-webdav/trunk/openwrt/luci-app-aliyundrive-webdav
 merge_package https://github.com/jerrykuku/luci-app-jd-dailybonus
 merge_package "-b 18.06 https://github.com/jerrykuku/luci-theme-argon"
+merge_package "https://github.com/jerrykuku/luci-app-ttnode"
 merge_package https://github.com/vernesong/OpenClash/trunk/luci-app-openclash
 merge_package https://github.com/NateLol/luci-app-oled
 merge_package "-b lede https://github.com/pymumu/luci-app-smartdns"
