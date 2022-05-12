@@ -29,7 +29,7 @@ jobs:
       run: |
         git config --global user.name 'a0575' && git config --global user.email 'huyunlei0377@gmail.com'
         wget https://github.com/00575/Nanopi/raw/master/common.seed -O common.seed
-        wget https://github.com/00575/Nanopi/raw/master/r2s.config.seed -O r2s.config.seed
+        #wget https://github.com/00575/Nanopi/raw/master/r2s.config.seed -O r2s.config.seed
         wget -qO scripts/merge_files.sh https://github.com/00575/Nanopi/raw/master/scripts/merge_files.sh
         wget -qO scripts/kernel-5.15 https://github.com/coolsnowwolf/lede/raw/master/include/kernel-5.15
         wget -qO scripts/kernel-5.10 https://github.com/coolsnowwolf/lede/raw/master/include/kernel-5.10
