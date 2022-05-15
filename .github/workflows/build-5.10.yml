@@ -49,6 +49,7 @@ jobs:
           else
           sudo chown $USER:$(id -gn) lede && git clone -b $BRANCH --single-branch https://github.com/coolsnowwolf/lede lede
           fi
+          
       - name: Update feeds and packages
         run: |
           cd ~/lede
@@ -63,10 +64,11 @@ jobs:
           . $GITHUB_WORKSPACE/scripts/merge_packages.sh
           . $GITHUB_WORKSPACE/scripts/patches_5.10.sh
           cd
-          svn export https://github.com/openwrt/luci luci
+          svn export https://github.com/openwrt/luci/trunk luci
           pushd luci
           ls -d */ | xargs -n1 -i diff -q {} ../lede/feeds/luci/{} | grep Only | grep lede | grep -E applications\|themes | awk '{print $4}' | xargs -n1 -i echo CONFIG_PACKAGE_{}=m > ~/lede/more_luci.txt
           popd
+          
       - name: Custom configure file
         run: |
           cd ~/lede && rm -rf .tmp/
@@ -76,6 +78,7 @@ jobs:
           cat more_luci.txt >> .config
           make defconfig && sed -i -E 's/# (CONFIG_.*_COMPRESS_UPX) is not set/\1=y/' .config && make defconfig
           cat .config
+          
       - name: Clean build cache
         #if: ${{ github.event.client_payload.package_clean == 'true' || github.event.inputs.device != '' }}
         run: |
@@ -93,6 +96,7 @@ jobs:
           make -j$[`nproc`+1] IGNORE_ERRORS=1
           if [ ! -e ~/lede/bin/targets/*/*/*imagebuilder*xz ]; then make V=sc; fi
           mv `ls ~/lede/bin/targets/*/*/*imagebuilder*xz` ~/ib-$DEVICE.tar.xz
+          
           echo "======================="
           echo "Space usage:"
           echo "======================="
@@ -101,6 +105,7 @@ jobs:
           du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
           du -h --max-depth=1 ./build_dir
           du -h --max-depth=1 ./bin
+          
       - name: Clean build cache
         #if: ${{ github.event.client_payload.package_clean == 'true' }}
         run: |
@@ -108,6 +113,7 @@ jobs:
           df -h .
           make package/clean
           df -h .
+          
       - name: Prepare artifact
         run: |
           cd
@@ -120,6 +126,7 @@ jobs:
           rm -rf bin tmp
           cd ..
           mv artifact $GITHUB_WORKSPACE
+          
       - name: Deliver buildinfo
         uses: actions/upload-artifact@v2
         with:
@@ -151,6 +158,7 @@ jobs:
           if [ $? -eq 0 ]; then break; fi
           done
           set -e
+          
   generate_slim_firmware:
     needs: build_packages
     name: Generate r2s slim firmware
