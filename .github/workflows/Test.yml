@@ -1,7 +1,7 @@
 name: r2s-test
 
 on:
-  repository_dispatch:
+  #repository_dispatch:
   workflow_dispatch:
 
 jobs:
