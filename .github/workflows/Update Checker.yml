@@ -3,7 +3,7 @@ name: Update Checker
 on:
   workflow_dispatch:
   schedule:
-    - cron: 30 22 * * *
+    - cron: 00 22 * * *
 
 env:
   TZ: Asia/Shanghai
