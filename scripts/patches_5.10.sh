@@ -29,6 +29,7 @@ sed -i 's/5.0/1.0/' .ccache/ccache.conf || true
 line_number_INCLUDE_V2ray=$[`grep -m1 -n 'Include V2ray' package/custom/openwrt-passwall/luci-app-passwall/Makefile|cut -d: -f1`-1]sed -i $line_number_INCLUDE_V2ray'd' package/custom/openwrt-passwall/luci-app-passwall/Makefile
 sed -i $line_number_INCLUDE_V2ray'd' package/custom/openwrt-passwall/luci-app-passwall/Makefile
 sed -i $line_number_INCLUDE_V2ray'd' package/custom/openwrt-passwall/luci-app-passwall/Makefile
+sed -i $line_number_INCLUDE_V2ray'd' package/custom/openwrt-passwall/luci-app-passwall/Makefile
 
 if [ $BRANCH == 'master' ]; then
 
