@@ -31,6 +31,7 @@ jobs:
         wget https://github.com/00575/Nanopi/raw/master/common.seed -O common.seed
         wget https://github.com/00575/Nanopi/raw/master/r2s.config.seed -O r2s.config.seed
         wget -qO scripts/merge_files.sh https://github.com/00575/Nanopi/raw/master/scripts/merge_files.sh
+        wget -qO scripts/merge_packages.sh https://github.com/00575/Nanopi/raw/master/scripts/merge_packages.sh
         wget -qO scripts/kernel-5.15 https://github.com/coolsnowwolf/lede/raw/master/include/kernel-5.15
         wget -qO scripts/kernel-5.10 https://github.com/coolsnowwolf/lede/raw/master/include/kernel-5.10
         wget -qO scripts/kernel-5.4 https://github.com/coolsnowwolf/lede/raw/master/include/kernel-5.4
