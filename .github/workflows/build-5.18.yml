@@ -143,7 +143,7 @@ jobs:
           sudo losetup -d $LOOP_DEVICE
           export AUTH="Authorization: token ${{ secrets.workflow_token }}"
           export cache_path='github.com/repos/00575/cache-build/releases'
-          export cache_repo_id='66351022'
+          export cache_repo_id='72182358'
           zstdmt -c --long lede.img | split --numeric=1 -b 2000m - lede.$DEVICE.img.zst.
           while true; do
           ret=$(curl -sH "$AUTH" "https://api.$cache_path/tags/cache-5.18")
@@ -198,7 +198,7 @@ jobs:
         with:
           repo_token: ${{ secrets.workflow_token }}
           file: ./release/*
-          tag: 5.15内核-${{env.strDate}}
+          tag: 5.18内核-${{env.strDate}}
           file_glob: true
           overwrite: true
           release_name: ${{env.strDate}}  5.18内核纯净版
