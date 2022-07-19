@@ -83,7 +83,7 @@ jobs:
           make defconfig && sed -i -E 's/# (CONFIG_.*_COMPRESS_UPX) is not set/\1=y/' .config && make defconfig
           cat .config
       - name: Clean build cache
-        #if: ${{ github.event.client_payload.package_clean == 'true' || github.event.inputs.device != '' }}
+        if: ${{ github.event.client_payload.package_clean == 'true' || github.event.inputs.device != '' }}
         run: |
           cd ~/lede
           df -h .
