@@ -94,6 +94,6 @@ esac
 done
 
 # set default theme to argon
-sed -i '/uci commit luci/i\uci set luci.main.mediaurlbase="/luci-static/argon"' `find package -type f -path '*/default-settings/files/*-default-settings'`
+#sed -i '/uci commit luci/i\uci set luci.main.mediaurlbase="/luci-static/argon"' `find package -type f -path '*/default-settings/files/*-default-settings'`
 
-sed -i 's/5.18/5.18/g' target/linux/rockchip/Makefile
+#sed -i 's/5.18/5.18/g' target/linux/rockchip/Makefile
