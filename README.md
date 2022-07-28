@@ -13,9 +13,9 @@ slim版固件只有OpenWrt本体，但内置了“本地软件源”，包含大
 
 ### 终端内在线升级方法： 
 
-+ 5.15内核 纯净版
++ 5.18内核 纯净版
 ```bash
-wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-5.15.sh | ver=-slim sh
+wget -qO- https://github.com/00575/R2S/raw/master/scripts/autoupdate-5.18.sh | ver=-slim sh
 ```
 + 5.10内核 纯净版
 ```bash
