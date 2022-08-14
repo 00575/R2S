@@ -1,4 +1,4 @@
-name: build-5.18
+name: build-5.19
 
 on:
   repository_dispatch:
@@ -67,7 +67,7 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
           . $GITHUB_WORKSPACE/scripts/merge_packages.sh
-          . $GITHUB_WORKSPACE/scripts/patches_5.18.sh
+          . $GITHUB_WORKSPACE/scripts/patches_5.19.sh
           cd
           svn export https://github.com/openwrt/luci/branches/master luci
           pushd luci
@@ -198,8 +198,8 @@ jobs:
         with:
           repo_token: ${{ secrets.workflow_token }}
           file: ./release/*
-          tag: 5.18内核-${{env.strDate}}
+          tag: 5.19内核-${{env.strDate}}
           file_glob: true
           overwrite: true
           release_name: ${{env.strDate}}  5.18内核纯净版
-          body: "5.18内核编译"
+          body: "5.19内核编译"
