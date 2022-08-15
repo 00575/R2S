@@ -96,9 +96,9 @@ done
 # set default theme to argon
 sed -i '/uci commit luci/i\uci set luci.main.mediaurlbase="/luci-static/argon"' `find package -type f -path '*/default-settings/files/*-default-settings'`
 
-# 设置内核为5-19
-sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.19/g" target/linux/rockchip/Makefile
-sed -i "s/KERNEL_PATCHVER=*.*/KERNEL_PATCHVER=5.19/g" target/linux/rockchip/Makefile        
+# 设置内核为5-4
+sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g" target/linux/rockchip/Makefile
+sed -i "s/KERNEL_PATCHVER=*.*/KERNEL_PATCHVER=5.4/g" target/linux/rockchip/Makefile        
 
 line_number_CONFIG_CRYPTO_LIB_BLAKE2S=$[`grep -n 'CONFIG_CRYPTO_LIB_BLAKE2S' package/kernel/linux/modules/crypto.mk | cut -d: -f 1`+1]
 sed -i $line_number_CONFIG_CRYPTO_LIB_BLAKE2S' s/HIDDEN:=1/DEPENDS:=@(LINUX_5_4||LINUX_5_10)/' package/kernel/linux/modules/crypto.mk
