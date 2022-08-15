@@ -96,5 +96,7 @@ done
 # set default theme to argon
 sed -i '/uci commit luci/i\uci set luci.main.mediaurlbase="/luci-static/argon"' `find package -type f -path '*/default-settings/files/*-default-settings'`
 
-#sed -i 's/5.19/5.19/g' target/linux/rockchip/Makefile
+# 设置内核为5-19
+sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.19/g" target/linux/rockchip/Makefile
+sed -i "s/KERNEL_PATCHVER=*.*/KERNEL_PATCHVER=5.19/g" target/linux/rockchip/Makefile        
 sed -i 's/kmod-usb-net-rtl8152/kmod-usb-net-rtl8152-vendor/' target/linux/rockchip/image/armv8.mk target/linux/sunxi/image/cortexa53.mk target/linux/sunxi/image/cortexa7.mk
