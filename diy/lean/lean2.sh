@@ -33,6 +33,8 @@ git apply cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
 rm cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
 sed -i 's/pwmchip1/pwmchip0/' target/linux/rockchip/armv8/base-files/usr/bin/fa-fancontrol.sh target/linux/rockchip/armv8/base-files/usr/bin/fa-fancontrol-direct.sh
 
+sed -i 's/START=95/START=99/' `find package/ -follow -type f -path */ddns-scripts/files/ddns.init`
+
 
 ##更改主机名
 sed -i "s/hostname='.*'/hostname='R2S'/g" package/base-files/files/bin/config_generate
