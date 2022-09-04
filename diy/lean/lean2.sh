@@ -25,8 +25,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon-18.06/g' feeds/luci/collections/
 
 ##加入作者信息
 sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='$(date +%Y%m%d)'/g" package/lean/default-settings/files/zzz-default-settings   
-# sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' YaoDao'/g" package/lean/default-settings/files/zzz-default-settings
-sed -i ‘/固件作者/d’ package/feeds/00575/patch/autocore/files/arm/index.htm
+# sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' 00575'/g" package/lean/default-settings/files/zzz-default-settings
 # cp -af feeds/00575/patch/banner  package/base-files/files/etc/
 
 ##add pwm fan control service
