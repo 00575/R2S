@@ -27,6 +27,8 @@ sed -i '/uci commit luci/i\uci set luci.main.mediaurlbase="/luci-static/argon"' 
 ##加入作者信息
 sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='$(date +%Y%m%d)'/g" package/lean/default-settings/files/zzz-default-settings   
 # sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' YaoDao'/g" package/lean/default-settings/files/zzz-default-settings
+sed -i ‘/固件作者/d’ package/lean/default-settings/files/zzz-default-settings
+sed -i ‘/固件作者/d’ /patch/autocore/files/arm/index.htm
 # cp -af feeds/xiangfeidexiaohuo/patch/banner  package/base-files/files/etc/
 
 ##add pwm fan control service
