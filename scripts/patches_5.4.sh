@@ -7,7 +7,7 @@ sed -i "/dep.*INCLUDE_.*=n/d" `find package/ -follow -type f -path '*/luci-app-t
 sed -i "s/option limit_enable '1'/option limit_enable '0'/" `find package/ -follow -type f -path '*/nft-qos/files/nft-qos.config'`
 sed -i "s/option enabled '1'/option enabled '0'/" `find package/ -follow -type f -path '*/vsftpd-alt/files/vsftpd.uci'`
 sed -i "/\/etc\/coremark\.sh/d" `find package/ -follow -type f -path '*/coremark/coremark'`
-sed -i 's/192.168.1.1/10.10.10.1/' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.2.1/' package/base-files/files/bin/config_generate
 sed -i 's/=1/=0/g' package/kernel/linux/files/sysctl-br-netfilter.conf
 
 sed -i '/DEPENDS+/ s/$/ +wsdd2/' `find package/ -follow -type f -path '*/ksmbd-tools/Makefile'`
@@ -37,19 +37,8 @@ if [[ $BRANCH == 'master' ]]; then
   # fix po path for snapshot
   #find package/ -follow -type d -path '*/po/zh-cn' | xargs dirname | xargs -n1 -i sh -c "rm -f {}/zh_Hans; ln -sf zh-cn {}/zh_Hans"
 
-  # remove non-exist package from x86 profile
-  sed -i 's/kmod-i40evf//;s/kmod-iavf//' target/linux/x86/Makefile
-
-  # kernel:fix bios boot partition is under 1 MiB
-  # https://github.com/WYC-2020/lede/commit/fe628c4680115b27f1b39ccb27d73ff0dfeecdc2
-  sed -i 's/256/1024/' target/linux/x86/image/Makefile
-
   # enable r2s oled plugin by default
   sed -i "s/enable '0'/enable '1'/" `find package/ -follow -type f -path '*/luci-app-oled/root/etc/config/oled'`
-
-  # swap the network adapter driver to r8168 to gain better performance for r4s
-  #sed -i 's/r8169/r8168/' target/linux/rockchip/image/armv8.mk
-
 
   case $DEVICE in
     r2s|r2c|r1p|r1p-lts)
@@ -96,8 +85,3 @@ sed -i '/uci commit luci/i\uci set luci.main.mediaurlbase="/luci-static/argon"' 
 # 设置内核为5-4
 sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g" target/linux/rockchip/Makefile
 sed -i "s/KERNEL_PATCHVER=*.*/KERNEL_PATCHVER=5.4/g" target/linux/rockchip/Makefile        
-
-line_number_CONFIG_CRYPTO_LIB_BLAKE2S=$[`grep -n 'CONFIG_CRYPTO_LIB_BLAKE2S' package/kernel/linux/modules/crypto.mk | cut -d: -f 1`+1]
-sed -i $line_number_CONFIG_CRYPTO_LIB_BLAKE2S' s/HIDDEN:=1/DEPENDS:=@(LINUX_5_4||LINUX_5_10)/' package/kernel/linux/modules/crypto.mk
-sed -i 's/libblake2s.ko@lt5.9/libblake2s.ko/;s/libblake2s-generic.ko@lt5.9/libblake2s-generic.ko/' package/kernel/linux/modules/crypto.mk
-sed -i 's/kmod-usb-net-rtl8152/kmod-usb-net-rtl8152-vendor/' target/linux/rockchip/image/armv8.mk target/linux/sunxi/image/cortexa53.mk target/linux/sunxi/image/cortexa7.mk
