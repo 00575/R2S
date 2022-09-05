@@ -28,14 +28,6 @@ sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='$(date +%Y%m%d)'/g" pac
 # sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' 00575'/g" package/lean/default-settings/files/zzz-default-settings
 # cp -af feeds/00575/patch/banner  package/base-files/files/etc/
 
-##add pwm fan control service
-wget https://github.com/friendlyarm/friendlywrt/commit/cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
-git apply cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
-rm cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
-sed -i 's/pwmchip1/pwmchip0/' target/linux/rockchip/armv8/base-files/usr/bin/fa-fancontrol.sh target/linux/rockchip/armv8/base-files/usr/bin/fa-fancontrol-direct.sh
-
-sed -i 's/START=95/START=99/' `find package/ -follow -type f -path */ddns-scripts/files/ddns.init`
-
 
 ##更改主机名
 sed -i "s/hostname='.*'/hostname='R2S'/g" package/base-files/files/bin/config_generate
@@ -88,3 +80,13 @@ sed -i '/option Interface/d'  package/network/services/dropbear/files/dropbear.c
 
 ## rockchip
 cp -af feeds/00575/patch/rockchip/*  target/linux/rockchip/armv8/base-files/
+
+## 增加风扇调速
+wget -P target/linux/rockchip/armv8/base-files/etc/init.d/ https://github.com/friendlyarm/friendlywrt/raw/master-v19.07.1/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-pwmfan
+wget -P target/linux/rockchip/armv8/base-files/usr/bin/ https://github.com/friendlyarm/friendlywrt/raw/master-v19.07.1/target/linux/rockchip-rk3328/base-files/usr/bin/start-rk3328-pwm-fan.sh
+
+##add pwm fan control service
+wget https://github.com/friendlyarm/friendlywrt/commit/cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
+git apply cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
+rm cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
+sed -i 's/pwmchip1/pwmchip0/' target/linux/rockchip/armv8/base-files/usr/bin/fa-fancontrol.sh target/linux/rockchip/armv8/base-files/usr/bin/fa-fancontrol-direct.sh
