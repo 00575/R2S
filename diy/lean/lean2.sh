@@ -82,10 +82,6 @@ sed -i '/option Interface/d'  package/network/services/dropbear/files/dropbear.c
 cp -af feeds/00575/patch/rockchip/*  target/linux/rockchip/armv8/base-files/
 
 ## 增加风扇调速
-wget -P target/linux/rockchip/armv8/base-files/etc/init.d/ https://github.com/friendlyarm/friendlywrt/raw/master-v19.07.1/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-pwmfan
-wget -P target/linux/rockchip/armv8/base-files/usr/bin/ https://github.com/friendlyarm/friendlywrt/raw/master-v19.07.1/target/linux/rockchip-rk3328/base-files/usr/bin/start-rk3328-pwm-fan.sh
-
-##add pwm fan control service
 wget https://github.com/friendlyarm/friendlywrt/commit/cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
 git apply cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
 rm cebdc1f94dcd6363da3a5d7e1e69fd741b8b718e.patch
