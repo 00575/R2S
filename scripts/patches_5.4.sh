@@ -83,6 +83,6 @@ done
 # set default theme to argon
 sed -i '/uci commit luci/i\uci set luci.main.mediaurlbase="/luci-static/argon"' `find package -type f -path '*/default-settings/files/*-default-settings'`
 
-# 设置内核为5-4
+## 强制编译内核为5.4  
 sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g" target/linux/rockchip/Makefile
-sed -i "s/KERNEL_PATCHVER=*.*/KERNEL_PATCHVER=5.4/g" target/linux/rockchip/Makefile        
+sed -i "s/KERNEL_PATCHVER=*.*/KERNEL_PATCHVER=5.4/g" target/linux/rockchip/Makefile   
