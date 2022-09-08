@@ -80,4 +80,4 @@ sed -i '/option Interface/d'  package/network/services/dropbear/files/dropbear.c
 
 ## rockchip
 cp -af feeds/00575/patch/rockchip/*  target/linux/rockchip/armv8/base-files/
-chmod +x files/usr/bin/fa-*.sh files/etc/init.d/fa-fancontrol
+chmod +x target/linux/rockchip/armv8/base-files//usr/bin/fa-*.sh target/linux/rockchip/armv8/base-files//etc/init.d/fa-fancontrol
