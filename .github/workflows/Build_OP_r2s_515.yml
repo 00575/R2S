@@ -120,11 +120,11 @@ jobs:
     - name: Generate Tag & Release Name
       id: generate_name
       run: |
-        time=$(date +%Y%m%d)
+        time=$(date +%Y%m%d%H%M)
         release_tag="$time"
         release_name="R2S-OpenWrt-5.15内核-$(date +%Y%m%d)"
         echo "##[set-output name=release_name;]$release_name"
-        echo "##[set-output name=release_tag;]$release_tag" 
+        echo "##[set-output name=release_tag;]$release_tag"        
         
     - name: Create Release & Upload
       uses: ncipollo/release-action@v1
