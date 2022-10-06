@@ -59,12 +59,12 @@ jobs:
         ## 强制默认r2s/r4s/r5s编译内核为5.19  
         sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.19/g" target/linux/rockchip/Makefile
         sed -i "s/KERNEL_PATCHVER=*.*/KERNEL_PATCHVER=5.19/g" target/linux/rockchip/Makefile        
-        sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='AE86Wrt-R2S-$(date +%Y%m%d)'/g" package/lean/default-settings/files/zzz-default-settings
+        sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='R2S-$(date +%Y%m%d)'/g" package/lean/default-settings/files/zzz-default-settings
        
               
     - name: Configuration Customization - Build_r2s_519
       env:
-        CONFIG_FILE: './configs/ARM/rockchip/r2s_519.config'
+        CONFIG_FILE: './r2s_519.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
@@ -75,6 +75,7 @@ jobs:
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        
     - name: Build firmware
       working-directory: ./openwrt
       run: |
@@ -96,7 +97,7 @@ jobs:
         rom=openwrt/bin/targets/rockchip/armv8/openwrt-rockchip-armv8-friendlyarm_nanopi-r2s-squashfs-sysupgrade.img.gz
         getmd5 $rom
                 
-        cp -a $rom ./ARM_Out/AE86Wrt-R2S-5.19-$(date +%Y%m%d)_${md5}.img.gz
+        cp -a $rom ./ARM_Out/R2S-5.19-$(date +%Y%m%d)_${md5}.img.gz
                
     - name: Upload Firmwares
       uses: actions/upload-artifact@main
